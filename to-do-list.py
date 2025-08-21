@@ -1,7 +1,13 @@
 import json
 
-def create_list():
+def content_seperator():
+    print("\n")
+    print("-------------------------------------")
 
+def create_list():
+    
+    content_seperator()
+    
     list = []
 
     while True:
@@ -10,7 +16,7 @@ def create_list():
         entry = {}
         
         entry["task"] = input("Enter a task: ")
-        entry["priority"] = input("Enter a priority (Choose between Low, Medium, and High: )")
+        entry["priority"] = input("Enter a priority (Choose between Low, Medium, and High): ")
         entry["completed"] = False #This defaults to 'False' because it is assumed the task has not been completed yet.
         
         while True:
@@ -29,6 +35,7 @@ def create_list():
             
             answer = input("Add another entry? Y/N: ")
             if answer == "Y" or answer == "y":
+                content_seperator()
                 break
             elif answer == "N" or answer == "n":
                 outer_flag = True
@@ -68,15 +75,18 @@ Enter the appropriate number to choose an option:
 ----------------------------------------------------    
     """)
 
-main_menu()
-
 while True:
 
-    try:
-        chosen_option = int(input("Your Option: "))
-    except ValueError:
-        print("Please choose a valid option from 1 - 5.")
-        continue
+    main_menu()
+    
+    while True:
+
+        try:
+            chosen_option = int(input("Your Option: "))
+        except ValueError:
+            print("Please choose a valid option from 1 - 5.")
+            continue
+        break
 
     if chosen_option == 1:
         create_list()
