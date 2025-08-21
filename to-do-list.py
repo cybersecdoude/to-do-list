@@ -47,12 +47,33 @@ def create_list():
         if outer_flag == True:
             break
 
-    with open("output.txt", "a") as file:
-        json.dump(list, file, indent=4)
+    with open("lists.json", "a") as file:
+        json.dump(list, file)
         file.write("\n")
 
 def read_list():
-    pass
+    
+    content_seperator()
+
+    all_tasks = []
+
+    with open("lists.json", "r") as file:
+        for line in file:
+            line = line.strip()
+            if line:
+                all_tasks.append(json.loads(line))
+
+    for i, element in enumerate(all_tasks, start=1):
+        print(f"=== To-Do List {i} ===")
+        for j, task in enumerate(element, start=1):
+            print(f"--- Task {j} ---")
+            for key, value in task.items():
+                if isinstance(value, list):
+                    new_list = [string.strip() for string in value]
+                    print(", ".join(new_list))
+                else:
+                    print(f"{key} - {value}")
+            print("\n")
 
 def update_list():
     pass
