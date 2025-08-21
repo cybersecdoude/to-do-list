@@ -1,12 +1,57 @@
-"""to_do_list = [
-    {
-        "task": "Take a shower",
-        "priority": "High",
-        "completed": True,
-        "duration_minutes": 15,
-        "tags": ["hygiene", "morning", "self-care"]
-    },
-"""
+import json
+
+def create_list():
+
+    list = []
+
+    while True:
+        
+        outer_flag = False
+        entry = {}
+        
+        entry["task"] = input("Enter a task: ")
+        entry["priority"] = input("Enter a priority (Choose between Low, Medium, and High: )")
+        entry["completed"] = False #This defaults to 'False' because it is assumed the task has not been completed yet.
+        
+        while True:
+            try:
+                entry["duration_minutes"] = int(input("Enter the time this should take to complete in minutes (e.g. 60): "))
+                break
+            except ValueError:
+                print("Invalid input. Please enter a valid number to represent the time this task will take in minutes.")
+                continue
+
+        entry["tags"] = input("Enter a comma-separated list of tags that describe your task. E.g. 'hygiene, morning, self-care': ").split(",")
+
+        list.append(entry)
+
+        while True:
+            
+            answer = input("Add another entry? Y/N: ")
+            if answer == "Y" or answer == "y":
+                break
+            elif answer == "N" or answer == "n":
+                outer_flag = True
+                break
+            else:
+                print("Invalid input. Choose between Y or N!")
+                continue
+
+        if outer_flag == True:
+            break
+
+    with open("output.txt", "a") as file:
+        json.dump(list, file, indent=4)
+        file.write("\n")
+
+def read_list():
+    pass
+
+def update_list():
+    pass
+
+def delete_list():
+    pass
 
 def main_menu():
     print("""
@@ -34,13 +79,13 @@ while True:
         continue
 
     if chosen_option == 1:
-        print("You chose option 1")
+        create_list()
     elif chosen_option == 2:
-        print("You chose option 2")
+        read_list()
     elif chosen_option == 3:
-        print("You chose option 3")
+        update_list()
     elif chosen_option == 4:
-        print("You chose option 4")
+        delete_list()
     elif chosen_option == 5:
         print("Exiting program...")
         break
